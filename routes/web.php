@@ -14,3 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+// /todos, /todos/create, /todos/1
+Route::resource('todos', 'TodoController');

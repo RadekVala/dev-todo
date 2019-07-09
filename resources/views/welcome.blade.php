@@ -64,6 +64,31 @@
         </style>
     </head>
     <body>
+        <?php
+
+            $todo = new \App\Todo();
+            $todo->name = 'Precist dokumentaci';
+            $todo->description = 'Aspon get started';
+            $todo->status_id = 1;
+
+            // save the todo
+            $todo->save();
+
+            // load all todos
+            $collection = \App\Todo::all();
+        ?>
+
+        <div>
+            <ul>
+                @foreach ($collection as $item)
+                    <li>
+                        {{ $item->name }}
+                    </li>
+                @endforeach
+            </ul>
+        </div>
+
+
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
