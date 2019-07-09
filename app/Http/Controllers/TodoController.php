@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 
 use App\Todo;
+use App\State;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -15,7 +17,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::all();
+        $todos = Todo::where( 'user_id', Auth::user()->id);
 
         return view('todos.index', [
             // pass todos local variable to blade template
@@ -30,7 +32,10 @@ class TodoController extends Controller
      */
     public function create()
     {
-        //
+        $states = State::all();
+        return view('todos.create', [
+            'states' => $states
+        ]);
     }
 
     /**
@@ -41,7 +46,23 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // data validation
+        $validatedData = $request->validate([
+            'name' => 'required|max:255',
+        ]);
+
+        // save valid data
+        Todo::create(
+            [
+                'name' => $request->name,
+                'description' => $request->description,
+                'status_id' => $request->status_id,
+                'user_id' => Auth::user()->id
+            ]
+        );
+
+        // redirect back to index
+        return redirect(route('todos.index'));
     }
 
     /**
