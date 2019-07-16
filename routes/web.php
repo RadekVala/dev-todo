@@ -12,13 +12,10 @@
 */
 
 
-// /todos, /todos/create, /todos/1
-Route::resource('todos', 'TodoController');
-
 Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
-
+    Route::resource('todos', 'TodoController');
     Route::get('/', 'TodoController@index')->name('home');
     Route::get('/home', 'TodoController@index')->name('home');
 });
