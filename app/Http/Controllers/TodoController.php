@@ -6,6 +6,7 @@ namespace App\Http\Controllers;
 use App\Todo;
 use App\State;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreTodo;
 use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
@@ -17,12 +18,16 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::where( 'user_id', Auth::user()->id)->get();
+        if(Auth::user() != null) {
+            //$todos = Todo::where( 'user_id', Auth::user()->id)->get();
+            $todos = Auth::user()->todos;
 
-        return view('todos.index', [
-            // pass todos local variable to blade template
-            'todos' => $todos,
-        ]);
+            return view('todos.index', [
+                // pass todos local variable to blade template
+                'todos' => $todos,
+            ]);
+        }
+
     }
 
     /**
@@ -44,12 +49,10 @@ class TodoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreTodo $request)
     {
-        // data validation
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-        ]);
+        $validated = $request->validated();
+
 
         // save valid data
         Todo::create(
@@ -101,14 +104,12 @@ class TodoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateTodo $request, $id)
     {
         //echo $request->description;
 
-        // at first validate incoming data
-        $validatedData = $request->validate([
-            'name' => 'required|max:255',
-        ]);
+        $validated = $request->validated();
+
 
         // save valid data
         $todo = Todo::find($id);
@@ -127,6 +128,13 @@ class TodoController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // load todo to delete
+        // $toDelete = Todo::find($id);
+        // $toDelete->delete();
+
+        Todo::destroy($id);
+
+        // redirect to index
+        return redirect(route('todos.index'));
     }
 }
