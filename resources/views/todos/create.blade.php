@@ -5,33 +5,46 @@
 @endsection
 
 @section('content')
-    <h1>{{ __('todos.create.title') }}</h1>
+    <div class="container">
+        <h1>{{ __('todos.create.title') }}</h1>
 
-    @if ($errors->any())
-        <div class="alert alert-danger">
-            <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+        @if ($errors->any())
+            <div class="alert alert-danger">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
 
-    <form method="POST" action="{{ route('todos.store') }}">
-        @csrf
+        <form method="POST" action="{{ route('todos.store') }}">
+            @csrf
 
-        <input name="name" type="text">
-        <textarea name="description"></textarea>
+            <div class="form-group">
+              <label for="name">Name</label>
+              <input type="text" name="name" id="name" class="form-control" placeholder="" aria-describedby="helpId">
+              <small id="helpId" class="text-muted">Name of your task</small>
+            </div>
 
-        <select name="status_id">
-            @foreach ($states as $state)
-                <option value="{{ $state->id }}">{{ $state->name }}</option>
-            @endforeach
-        </select>
+            <div class="form-group">
+                <label for="name">Description</label>
+                <textarea class="form-control" name="description"></textarea>
+            </div>
 
-        <input type="submit" value="{{ __('todos.create.submitButton') }}">
+            <div class="form-group">
+                <label for="state">State</label>
+                <select name="status_id">
+                    @foreach ($states as $state)
+                        <option class="form-control" value="{{ $state->id }}">{{ $state->name }}</option>
+                    @endforeach
+                </select>
+            </div>
 
-    </form>
+            <input class="btn btn-primary" type="submit" value="{{ __('todos.create.submitButton') }}">
+
+        </form>
+    </div>
 
 
 @endsection

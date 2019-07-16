@@ -17,7 +17,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        $todos = Todo::where( 'user_id', Auth::user()->id);
+        $todos = Todo::where( 'user_id', Auth::user()->id)->get();
 
         return view('todos.index', [
             // pass todos local variable to blade template

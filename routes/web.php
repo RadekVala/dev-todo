@@ -11,13 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 // /todos, /todos/create, /todos/1
 Route::resource('todos', 'TodoController');
 
 Auth::routes();
 
-Route::get('/home', 'TodoController@index')->name('home');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::get('/', 'TodoController@index')->name('home');
+    Route::get('/home', 'TodoController@index')->name('home');
+});
+
