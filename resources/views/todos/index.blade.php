@@ -17,6 +17,7 @@
                     <div class="row">
                         <div class="col-10">
                                 {{ $todo->name }}
+                                | {{ $todo->state->name }}
                         </div>
 
                         <div class="col-2 text-right">
@@ -31,8 +32,9 @@
                     </div>
 
                     <a class="btn btn-primary" href="{{ route('todos.edit', [ 'id' => $todo->id ]) }}" title="">{{ __('todos.index.edit') }}</a>
-                    <form action="{{ route('todos.destroy', [ 'id' => $todo->id ]) }}">
-                        @method('delete')
+                    <form method="POST" action="{{ route('todos.destroy', [ 'id' => $todo->id ]) }}">
+                        @csrf
+                        @method('DELETE')
                         <input class="btn btn-danger" type="submit" value="{{ __('todos.index.delete') }}">
                     </form>
                 </div>
