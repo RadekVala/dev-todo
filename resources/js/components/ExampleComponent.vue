@@ -44,10 +44,14 @@ export default {
      */
     componentMethod: function() {
       // do something
-    },
-    mounted() {
-      console.log("Component mounted.");
     }
+  },
+
+  /*
+  * event handler of succesfull initiating of component
+  */
+  mounted() {
+    console.log("Component mounted.");
   }
 };
 </script>
