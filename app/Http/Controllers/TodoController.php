@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-
 use App\Todo;
 use App\State;
 use Illuminate\Http\Request;
@@ -18,7 +17,7 @@ class TodoController extends Controller
      */
     public function index()
     {
-        if(Auth::user() != null) {
+        if (Auth::user() != null) {
             //$todos = Todo::where( 'user_id', Auth::user()->id)->get();
             $todos = Auth::user()->todos;
 
@@ -27,7 +26,14 @@ class TodoController extends Controller
                 'todos' => $todos,
             ]);
         }
+    }
 
+    /**
+     * Index page of Todos using VUE.js component
+     */
+    public function indexVue()
+    {
+        return view('todos.index-vue');
     }
 
     /**

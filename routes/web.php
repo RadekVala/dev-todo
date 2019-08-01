@@ -16,7 +16,7 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('todos', 'TodoController');
-    Route::get('/', 'TodoController@index')->name('home');
-    Route::get('/home', 'TodoController@index')->name('home');
+    Route::get('/', 'TodoController@indexVue')->name('home');
+    Route::get('/home', 'TodoController@indexVue')->name('home');
 });
 
