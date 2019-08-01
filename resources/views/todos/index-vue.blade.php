@@ -8,7 +8,7 @@
     <div class="container">
         <h1>Todos</h1>
 
-
+        <todo-root></todo-root>
     </div>
 @endsection
 
