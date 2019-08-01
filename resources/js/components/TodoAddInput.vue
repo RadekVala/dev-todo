@@ -37,16 +37,28 @@ export default {
       console.log(this.todoTitle);
 
       axios
-        .post("/api/test", {
+        .post("/api/todos", {
           name: this.todoTitle // pass todo title to store API
         })
-        .then(resp => {
-          console.log(resp.data);
+        .then(response => {
+          console.log(response.data);
+
+          this.$parent.statusMessageObj = response.data;
+
+          this.todoTitle = '';
+
+          // Todos in grid should be updated - reload DB
+          this.$eventHub.$emit('update-todos');
+        })
+        .catch(error => {
+          this.$parent.statusMessageObj = error.response.data;
         });
     }
   },
   mounted() {
     console.log("Component mounted.");
+
+    console.log(this.$root);
   }
 };
 </script>
