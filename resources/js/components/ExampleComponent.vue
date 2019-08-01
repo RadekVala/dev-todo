@@ -48,8 +48,8 @@ export default {
   },
 
   /*
-  * event handler of succesfull initiating of component
-  */
+   * event handler of succesfull component's initiating
+   */
   mounted() {
     console.log("Component mounted.");
   }
