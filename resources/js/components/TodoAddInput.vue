@@ -21,6 +21,12 @@
   </div>
 </template>
 
+<style>
+    h1 {
+        color: black;
+    }
+</style>
+
 <script>
 export default {
   data() {
