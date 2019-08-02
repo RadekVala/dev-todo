@@ -15,6 +15,8 @@ class UsersSeeder extends Seeder
             'name' => 'admin',
             'email' => 'admin@example.com',
             'password' => bcrypt('password'),
+            'remember_token' => Str::random(10),
+            'api_token' => Str::random(40),
         ]);
         factory(App\User::class, 5)->create();
     }
