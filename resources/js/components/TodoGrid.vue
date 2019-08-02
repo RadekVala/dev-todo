@@ -10,10 +10,10 @@
 
           <div v-on:dblclick="editDescription(index, 'textarea' + index)" class="card-body">
             <div v-show="index == indexEdited">
-              <textarea v-bind:ref="'textarea' + index" class="form-control" rows="3"></textarea>
+              <textarea v-model="todo.description " v-bind:ref="'textarea' + index" class="form-control" rows="3"></textarea>
               <button type="button" class="btn btn-primary btn-sm btn-block">Save</button>
             </div>
-            <div v-show="index ==! indexEdited">{{ todo.description }}</div>
+            <div v-show="index !== indexEdited">{{ todo.description }}</div>
           </div>
         </div>
       </div>

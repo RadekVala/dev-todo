@@ -38052,10 +38052,27 @@ var render = function() {
                   },
                   [
                     _c("textarea", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: todo.description,
+                          expression: "todo.description "
+                        }
+                      ],
                       ref: "textarea" + index,
                       refInFor: true,
                       staticClass: "form-control",
-                      attrs: { rows: "3" }
+                      attrs: { rows: "3" },
+                      domProps: { value: todo.description },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(todo, "description", $event.target.value)
+                        }
+                      }
                     }),
                     _vm._v(" "),
                     _c(
@@ -38076,8 +38093,8 @@ var render = function() {
                       {
                         name: "show",
                         rawName: "v-show",
-                        value: index == !_vm.indexEdited,
-                        expression: "index ==! indexEdited"
+                        value: index !== _vm.indexEdited,
+                        expression: "index !== indexEdited"
                       }
                     ]
                   },
