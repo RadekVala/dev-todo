@@ -96,7 +96,20 @@ class TodoAPIController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        try {
+            $todo = Todo::find($id);
+            $todo->description = $request->description;
+            $todo->save();
+
+            return response()->json([
+                'message' => 'Todo was succesfully updated.',
+            ]);
+        } catch (Exception $e) {
+            return response()->json([
+                'errors' => 'exception',
+                'message' => $e->getMessage(),
+            ]);
+        }
     }
 
     /**

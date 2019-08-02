@@ -4,9 +4,12 @@
       v-bind:class="messageShow +' alert alert-'+messageType"
       role="alert"
     >{{ statusMessageObj.message }}</div>
+     <div v-show="loading"> Loading ... </div>
     <todo-add-input></todo-add-input>
 
     <todo-grid ref="grid"></todo-grid>
+
+
   </div>
 </template>
 
@@ -29,7 +32,8 @@ export default {
       todoTitle: "test",
       messageType: "success",
       messageShow: "fade",
-      statusMessageObj: {}
+      statusMessageObj: {},
+      loading: false
     };
   },
 

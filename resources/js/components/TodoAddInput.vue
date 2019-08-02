@@ -35,24 +35,26 @@ export default {
      */
     addTodoClicked: function() {
       console.log(this.todoTitle);
+      if (this.todoTitle.length > 0) {
+        // Todos in grid should be updated - reload DB
+        this.$eventHub.$emit("update-todos", this.todoTitle);
 
-      axios
-        .post("/api/todos", {
-          name: this.todoTitle // pass todo title to store API
-        })
-        .then(response => {
-          console.log(response.data);
+        //this.$parent.loading = true;
+        axios
+          .post("/api/todos", {
+            name: this.todoTitle // pass todo title to store API
+          })
+          .then(response => {
+            console.log(response.data);
 
-          this.$parent.statusMessageObj = response.data;
+            this.$parent.statusMessageObj = response.data;
 
-          this.todoTitle = '';
-
-          // Todos in grid should be updated - reload DB
-          this.$eventHub.$emit('update-todos');
-        })
-        .catch(error => {
-          this.$parent.statusMessageObj = error.response.data;
-        });
+            this.todoTitle = "";
+          })
+          .catch(error => {
+            this.$parent.statusMessageObj = error.response.data;
+          });
+      }
     }
   },
   mounted() {

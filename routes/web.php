@@ -14,6 +14,10 @@
 
 Auth::routes();
 
+Route::get('/exampleVue', function() {
+    return view('exampleVue');
+});
+
 Route::group(['middleware' => 'auth'], function () {
     Route::resource('todos', 'TodoController');
     Route::get('/', 'TodoController@indexVue')->name('home');
