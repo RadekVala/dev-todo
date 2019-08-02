@@ -17,11 +17,18 @@ class TodoAPIController extends Controller
      */
     public function index()
     {
+        /*
         $todos = Auth::user()->todos;
         $sorted = $todos->sortByDesc('created_at');
         $sorted = $sorted->sortBy('status_id');
 
         return response()->json($sorted->values()->all());
+        */
+
+        $todos = Todo::where('user_id',Auth::user()->id)
+                ->orderBy('created_at', 'desc')
+                ->orderBy('status_id')->get();
+        return response()->json($todos);
     }
 
     /**
